@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Virtual Machine Interface</title>
+    
+<body>
+    <div class="container">
+        <h1>Virtual Machine</h1>
+
+        <h2>INSTRUCTIONS</h2>
+        <p>
+            This is a small virtual machine that replicates the behavior of a text editor. The instructions must be separated by new lines.<br>
+            Some examples of instructions that can be executed are: <br>
+            <ul>
+                <li>WRITE Hello </li>
+                <li>WRITE World! </li>
+                <li>UNDO </li>
+        </p>
+        
+        <textarea id="instructions" rows="5" cols="50" placeholder="Enter instructions here..."></textarea>
+        <br>
+        <button onclick="executeInstructions()">Execute</button>
+
+        <h2>OUTPUT</h2>
+        <p>Here is the output, only shows the resulting words</p>
+        <div id="output"></div>
+
+        <h2>COMMAND CONTROL</h2>
+        <p>Here is the list of commands that are being executed</p>
+        <div id="messages"></div>
+    </div>
+
+    <script>
+        function executeInstructions() {
+            const instructionsText = document.getElementById('instructions').value;
+            const instructions = instructionsText.split('\n').map(line => line.split(' '));
+
+            fetch('/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ instructions: instructions })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').textContent = data.result;
+                
+                // Convertir los mensajes a HTML con saltos de línea
+                document.getElementById('messages').innerHTML = data.messages.join('<br>');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
