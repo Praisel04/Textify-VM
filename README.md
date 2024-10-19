@@ -1,20 +1,41 @@
 # Virtual Machine Text Editor
 **Bienvenidos a la presentación de mi proyecto de una máquina virtual básica de edición de texto para la Universidad Camilo José Cela.** 
-**En este proycto nos han pedido hacer una pequeña Máquina Virtual basada en pilas, en este caso he utilizado Python.**
+**En este proyecto nos han pedido hacer una pequeña Máquina Virtual basada en pilas, en este caso he utilizado Python.**
 
 **El codigo se basa en una serie de funciones que se van a encargar de realizar el funcionamiento básico de un editor de texto como escribir, copiar, pegar, deshacer, rehacer...**
 
->[!IMPORTANT]
+
 > ## INTEGRANTES DEL PROYECTO
 >  -Iván Seco Martín
 >
 >  -Mario Suárez del Hierro
 >
 >  -Javier Poza Garijo
+
+>[!IMPORTANT]
+>## REQUISITOS
+>Tener Python instalado.
+>
+>Instalar Flask
+>
+>     pip install Flask  
+>
+>Descargar la carpeta de *VirtualMachine*
+>
+>Acceder a la carpeta descargada
+>
+>      cd ruta/al/archivo
+>
+>Ejecución del programa
+>
+>      python .\app.py
 >
 >
-## ANTES DE EMPEZAR
-Utilizar este código es muy sencillo, ya que no se requieren bibliotecas externas para ejecutalo, solo es necesario Python y utilizar un bloc de notas para indicar las instrucciones.
+>
+>
+
+
+
 >
 ### EXPLICACION BASICA DEL PROGRAMA
 El código implementa una clase "MaquinaVirtualSimple" en Python, que simula un editor de texto básico con funcionalidades de escribir, deshacer, rehacer, copiar, pegar, transformar a mayúsculas texto.
