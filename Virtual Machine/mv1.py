@@ -14,6 +14,8 @@ class VirtualMachine:
     PASTE = "PASTE"
     WRITE = "WRITE"
     SHOW = "SHOW"
+    UPPER = "UPPER"
+    LOWER = "LOWER"
     CLEAR = "CLEAR"
 
     def __init__(self):
@@ -50,22 +52,27 @@ class VirtualMachine:
         """Execute the loaded instructions in the machine"""
         for instr in self.instructions:
             command = instr[0]
-            if command == self.UNDO:
+            if command.upper() == self.UNDO:
                 self.undo()
-            elif command == self.REDO:
+            elif command.upper() == self.REDO:
                 self.redo()
-            elif command == self.COPY:
+            elif command.upper() == self.COPY:
                 word = instr[1] if len(instr) > 1 else ""
                 self.copyWord(word)
-            elif command == self.PASTE:
+            elif command.upper() == self.PASTE:
                 self.pasteWord()
-            elif command == self.WRITE:
+            elif command.upper() == self.WRITE:
                 text = instr[1] if len(instr) > 1 else ""
                 self.writeText(text)
-            elif command == self.SHOW:
-                self.showAddedText()
-            elif command == self.CLEAR:
+            elif command.upper() == self.SHOW:
+                    self.showAddedText()
+            elif command.upper() == self.UPPER:
+                self.upper()
+            elif command.upper() == self.LOWER:
+                self.lower()
+            elif command.upper() == self.CLEAR:
                 self.clear()
+                
             else:
                 self.messages.append("Invalid or empty command.")
 
@@ -181,6 +188,21 @@ class VirtualMachine:
         else:
             self.messages.append("Executing showAddedText fuction. Cannot display the last element from the stack because it is empty.")
 
+
+    def upper(self):
+        
+        mayustext = self.getCurrentText().upper()
+        self.changeStack.clear()
+        self.changeStack.append(mayustext)
+        self.messages.append(f"Executing mayus fuction. Current text: {mayustext}")
+
+    def lower(self):
+        
+        lowertext = self.getCurrentText().lower()
+        self.changeStack.clear()
+        self.changeStack.append(lowertext)
+        self.messages.append(f"Executing lower fuction. Current text: {lowertext}")
+
     def clear(self):
         """
         Clear everything from the change stack.
@@ -193,7 +215,8 @@ class VirtualMachine:
             self.changeStack = []
             self.messages.append("Executing clear function. Text has been deleted correctly")
         else:
-            self.messages.append("Executing clear function. There is not text in the stack.")
+            self.messages.append("Executing clear function. There is not text in the stack.")    
+
 
 # Function to read the custom text file
 def read_instructions_from_file(file):
