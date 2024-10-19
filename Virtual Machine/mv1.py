@@ -14,6 +14,7 @@ class VirtualMachine:
     PASTE = "PASTE"
     WRITE = "WRITE"
     SHOW = "SHOW"
+    CLEAR = "CLEAR"
 
     def __init__(self):
     # Necessary stacks for the Virtual Machine
@@ -62,7 +63,9 @@ class VirtualMachine:
                 text = instr[1] if len(instr) > 1 else ""
                 self.writeText(text)
             elif command == self.SHOW:
-                    self.showAddedText()
+                self.showAddedText()
+            elif command == self.CLEAR:
+                self.clear()
             else:
                 self.messages.append("Invalid or empty command.")
 
@@ -178,6 +181,19 @@ class VirtualMachine:
         else:
             self.messages.append("Executing showAddedText fuction. Cannot display the last element from the stack because it is empty.")
 
+    def clear(self):
+        """
+        Clear everything from the change stack.
+
+        This function deletes everything has been written in the stack.
+        If the stack is empty, it notifies the user.
+        """
+
+        if len(self.changeStack) > 0:
+            self.changeStack = []
+            self.messages.append("Executing clear function. Text has been deleted correctly")
+        else:
+            self.messages.append("Executing clear function. There is not text in the stack.")
 
 # Function to read the custom text file
 def read_instructions_from_file(file):
