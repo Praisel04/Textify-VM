@@ -37,11 +37,11 @@
 ### EXPLICACION BASICA DEL PROGRAMA
 El codigo implementa una variedad de archivos.
 
-  - mv1.py, es el archivo dedicado a la Máquina Virtual. Cuenta con la inicialización de todas instrucciones del programa , así como sus funciones-
-  - app.py, contiene Flask y las rutas de servidor, con las ejecuciones que van a llevar cada una.
-  - genQrCode.py, es el archivo dedicado a la generación del codigo QR, donde hay que cambiar la URL y tras ejecutarlo, introducir la imagen en la carpeta static
-  - templates/index.html, contiene la estructura de l página web.
-  - static/style.css, contiene el formato de la página web
+  - **mv1.py:** Es el archivo dedicado a la Máquina Virtual. Cuenta con la inicialización de todas instrucciones del programa , así como sus funciones.
+  - **app.py:** Contiene Flask y las rutas de servidor, con las ejecuciones que van a llevar cada una.
+  - **genQrCode.py:** Es el archivo dedicado a la generación del codigo QR, donde hay que cambiar la URL y tras ejecutarlo, introducir la imagen en la carpeta static.
+  - **templates/index.html:** Contiene la estructura de l página web.
+  - **static/style.css:** Contiene el formato de la página web.
   
 
 # Funcionalidades de la Máquina Virtual
