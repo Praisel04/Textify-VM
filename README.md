@@ -29,50 +29,62 @@
 >Ejecución del programa
 >
 >      python .\app.py
->
->
->
->
+>Tras ejecutar esto, en al terminal saldrá una ruta donde se estará ejecutando el servidor.
 
 
 
 >
 ### EXPLICACION BASICA DEL PROGRAMA
-El código implementa una clase "MaquinaVirtualSimple" en Python, que simula un editor de texto básico con funcionalidades de escribir, deshacer, rehacer, copiar, pegar, transformar a mayúsculas texto.
+El codigo implementa una variedad de archivos.
 
-La clase maneja 3 pilas: una para las acciones realizadas, otra para las acciones que se pueden rehacer y otra que actúa como portapapeles para almacenar el texto que se ha copiado.
+  - mv1.py, es el archivo dedicado a la Máquina Virtual. Cuenta con la inicialización de todas instrucciones del programa , así como sus funciones-
+  - app.py, contiene Flask y las rutas de servidor, con las ejecuciones que van a llevar cada una.
+  - genQrCode.py, es el archivo dedicado a la generación del codigo QR, donde hay que cambiar la URL y tras ejecutarlo, introducir la imagen en la carpeta static
+  - templates/index.html, contiene la estructura de l página web.
+  - static/style.css, contiene el formato de la página web
+  
 
-Esto permite un control eficiente del estado del texto y sus modificaciones.
-
->[!NOTE]
-> Las instrucciones se cargan desde un archivo de texto y se ejecutan secuencialmente, no se ejecuta el código desde Python.
-
-# Funcionalidades
-## Clase MaquinaVirtualSimple
+# Funcionalidades de la Máquina Virtual
 ### Métodos Principales
-Hay una serie de métodos en la clase MaquinaVirtualSimple que hacen funcionar a la máquina, dichos métodos son los siguientes:
-- **__init__():** Constructor de la clase, aquí se inicializan las 3 pilas que tenemos, y la lista de instrucciones que indicamos en el archivo de texto.
-- **cargarPrograma(instrucciones):** Cargar una lista de instrucciones para ser ejecutadas.
-- **ejecutar():** Ejecuta las instrucciones cargadas en la máquina virtual.
+
+- **__init__():** Constructor de la clase, aquí se inicializan las 5 pilas que usará el programa, y el listado de instrucciones
+  
+  - changeStack: Pila principal donde se guarda el texto que se escribe y las modificaciones que se hacen.
+  - redoStack: Pila que se encarga de guardar los cambios de UNDO y REDO.
+  - copyStack: Pila que se encarga de guardar los cambios de COPY y PASTE.
+  - instructions: Pila encargada de almacenar las instrucciones del usuario.
+  - messages: Pila encargada de almacenar los mensajes que se van a mostrar al usaurio.
+      
+- **loadProgram(instrucciones):** Cargar una lista de instrucciones para ser ejecutadas.
+- **execute():** Ejecuta las instrucciones cargadas en la máquina virtual.
 
 ### Comandos para ejecutar las instrucciones en el fichero de texto
-Aquí se explicarán los comandos que hemos asignado a cada instrucción:
-- **ESCRIBIR:** Añade el texto especificado al texto actual.
-- **DESHACER:** Deshace la última acción realizada.
-- **REHACER:** Rehace la última acción que fue deshecha.
-- **COPIAR:** Copia la palabra especificada al portapapeles.
-- **PEGAR:** Pega la última palabra copiada al texto actual.
-- **MOSTRAR:** Muestra la última modificación del texto.
+- **WRITE:** Escribe el texto especificado por el usuario.
+- **UNDO:** Deshace la última acción realizada.
+- **REDO:** Rehace la última acción que fue deshecha.
+- **COPY:** Copia la palabra especificada al portapapeles.
+- **PASTE:** Pega la última palabra copiada al texto actual.
+- **SHOW:** Muestra la última modificación del texto.
+- **UPPER:** Convierte todo el texto a mayúsculas
+- **LOWER:** Convierte todo el texto a minúsculas
+- **CLEAR:** Borra todos los mensajes de la terminal
+- **HELP** Muestra un pequeño mensaje mostrando todos los comando disponibles
+>[!NOTE]
+>**TODOS LOS COMANDO MOSTRARÁN UN MENSAJE DE ERROR SI NO PUEDEN EJECUTAR LA INSTRUCCIÓN**
 
 # Métodos de operación sobre las pilas
-Estos son los métodos que van a realizar las diferentes instrucciones, a las que se han asignado los distintos comandos:
-- **escribir_texto(texto):**  Agrega texto a la pila de cambios, se corresponde con el comando ESCRIBIR.
-- **deshacer():**  Deshace el último cambio realizado., se corresponde con el comando DESHACER.
-- **rehacer():**  Rehace el último cambio deshecho, se corresponde con el comando REHACER.
-- **copiarPalabra(palabra):**  Copia la palabra del texto actual que el usuario eliga, se corresponde con el comando COPIAR.
-- **pegarPalabra():**   Pega la última palabra copiada al texto actual, se corresponde con el comando PEGAR.
-- **vaciar_rehacer():**  Vacía la pila de rehacer al realizar un nuevo cambios, se utiliza en los métodos escribir_texto.
-- **obtenerTextoActual():**  Devuelve el texto actual concatenando todos los cambios, se corresponde con el comando MOSTRAR.
+- **writeText(text):**  Agrega el texto solicitado a la pila de cambios.
+- **undo():**  Deshace el último cambio realizado guardado en la pila se cambios. Guarda la palabra cambiada en la pila para poder hacer un REDO.
+- **redo():**  Rehace el último cambio deshecho.
+- **copyWord(palabra):**  Copia la palabra del texto actual que el usuario pase como parametro de la función. Se guarda en la pila copyStack, para poder ser utilizada por la función PASTE.
+- **paste():**   Pega la última palabra copiada al texto actual. Cuando se ejecuta la función la palabra no sale de la pila, para poder ser pegada mas veces
+- **clearRedo():** Función para limpiar la pila del REDO
+- **getCurrentText():**  Función que se usa para obtener el texto actual, simplemente para uso entre funciones.
+- **showAddedText():** Función para mostar al usuario el texto actual.
+- **upper():** Función para pasar todo el texto a mayúsculas.
+- **lower():** Función para pasar todo el texto a minúsculas.
+- **clear():** Función para borrar todos los mensajes de la terminal.
+- **help():** Funcion que muestra todos los comandos disponibles usando la pila de mensajes.
 
 
 ### CARACTERÍSTICAS CLAVE
