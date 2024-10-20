@@ -5,7 +5,7 @@ import argparse
 #     Mario Suarez del Hierro
 #     Javier Poza Garijo
 #FECHA DE INICIO: 14/10/2024 
-#ULTIMA MODIFICACION: 19/10/2024
+#ULTIMA MODIFICACION: 20/10/2024
 
 class VirtualMachine:
 
@@ -94,7 +94,6 @@ class VirtualMachine:
         self.redoStack = []
         self.copyStack = []
         self.messages = []
-
 
     # Stack operation methods
 
@@ -198,7 +197,6 @@ class VirtualMachine:
         else:
             self.messages.append("Executing showAddedText fuction. Cannot display the last element from the stack because it is empty.")
 
-
     def upper(self):
         
         """
@@ -233,7 +231,7 @@ class VirtualMachine:
         """
 
         if len(self.changeStack) > 0:
-            self.changeStack = []
+            self.reset()
             self.messages.append("Executing clear function. Text has been deleted correctly")
         else:
             self.messages.append("Executing clear function. There is not text in the stack.")    
@@ -246,6 +244,7 @@ class VirtualMachine:
         """
         self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit")
         self.messages.append("For more information, please refer to the README.md file in the QR code.")
+
 
 # Function to read the custom text file
 def read_instructions_from_file(file):
