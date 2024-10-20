@@ -1,5 +1,12 @@
 import argparse
 
+# CODIGO REALIZADO POR :
+#     Iván Seco
+#     Mario Suarez del Hierro
+#     Javier Poza Garijo
+#FECHA DE INICIO: 14/10/2024 
+#ULTIMA MODIFICACION: 19/10/2024
+
 class VirtualMachine:
 
     """
@@ -17,6 +24,7 @@ class VirtualMachine:
     UPPER = "UPPER"
     LOWER = "LOWER"
     CLEAR = "CLEAR"
+    HELP = "HELP"
 
     def __init__(self):
     # Necessary stacks for the Virtual Machine
@@ -72,6 +80,8 @@ class VirtualMachine:
                 self.lower()
             elif command.upper() == self.CLEAR:
                 self.clear()
+            elif command.upper() == self.HELP:
+                self.help()
                 
             else:
                 self.messages.append("Invalid or empty command.")
@@ -191,6 +201,11 @@ class VirtualMachine:
 
     def upper(self):
         
+        """
+        Upper function
+        This function converts the current text to uppercase and stores it in the stack.
+        It clears the current stack and adds the new uppercase text to it.
+        """
         mayustext = self.getCurrentText().upper()
         self.changeStack.clear()
         self.changeStack.append(mayustext)
@@ -198,6 +213,12 @@ class VirtualMachine:
 
     def lower(self):
         
+        
+        """
+        Lower function
+        This function converts the current text to lowercase and stores it in the stack.
+        It clears the current stack and adds the new lowercase text to it.
+        """
         lowertext = self.getCurrentText().lower()
         self.changeStack.clear()
         self.changeStack.append(lowertext)
@@ -217,6 +238,14 @@ class VirtualMachine:
         else:
             self.messages.append("Executing clear function. There is not text in the stack.")    
 
+    def help(self):
+        """
+        Help function
+        This function shows the available arguments for the program.
+        The arguments are: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit
+        """
+        self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit")
+        self.messages.append("For more information, please refer to the README.md file in the QR code.")
 
 # Function to read the custom text file
 def read_instructions_from_file(file):

@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Virtual Machine Interface</title>
-    
+</head>
 <body>
     <div class="container">
-        <h1>Virtual Machine</h1>
+        <!-- Contenedor para el título y QR -->
+        <div class="header">
+            <h1>Virtual Machine</h1>
+            <!-- Aquí colocamos la imagen del código QR en la esquina superior derecha -->
+            <img src="{{ url_for('static', filename='qrcode.png') }}" alt="QR Code" class="qr-code">
+        </div>
 
         <h2>INSTRUCTIONS</h2>
         <p>
             This is a small virtual machine that replicates the behavior of a text editor. The instructions must be separated by new lines.<br>
             Some examples of instructions that can be executed are: <br>
             <ul>
-                <li>WRITE Hello </li>
-                <li>WRITE World! </li>
-                <li>UNDO </li>
+                <li>WRITE Hello</li>
+                <li>WRITE World!</li>
+                <li>UNDO</li>
+            </ul>
         </p>
         
         <textarea id="instructions" rows="5" cols="50" placeholder="Enter instructions here..."></textarea>
@@ -48,8 +54,6 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById('output').textContent = data.result;
-                
-                // Convertir los mensajes a HTML con saltos de línea
                 document.getElementById('messages').innerHTML = data.messages.join('<br>');
             })
             .catch(error => {

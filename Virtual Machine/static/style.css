@@ -9,92 +9,107 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #dda56a; /* Color de fondo cálido claro */
-    color: #333; /* Texto oscuro para contraste */
-    line-height: 1.6; /* Mejora el espaciado entre líneas */
+    color: #333;
+    line-height: 1.6;
     padding: 20px;
-    display: flex; /* Utiliza flexbox para centrar */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    min-height: 100vh; /* Altura mínima para centrar verticalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Contenedor principal */
 .container {
-    width: 80%; /* Ancho del contenedor */
-    max-width: 800px; /* Ancho máximo para pantallas grandes */
-    background-color: #ffe4b5; /* Color de fondo cálido para el contenedor */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 20px; /* Relleno interno */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave para profundidad */
+    width: 80%;
+    max-width: 800px;
+    background-color: #ffe4b5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-/* Header styles */
+/* Header styling */
+.header {
+    display: flex;
+    justify-content: center; /* Centrar el título */
+    align-items: center;
+    position: relative;
+}
+
 h1 {
     text-align: center;
-    color: #d75b0d; /* Color cálido para el encabezado */
+    color: #d75b0d;
     margin-bottom: 20px;
 }
 
-h2 {
-    color: #d75b0d; /* Color cálido para encabezados de sección */
-    margin-top: 20px;
-    border-bottom: 2px solid #d75b0d; /* Línea inferior en encabezados de sección */
-    padding-bottom: 5px;
-    text-align: center; /* Centrar el texto */
+/* QR code en la esquina superior derecha */
+.qr-code {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    margin-right: 70px;
 }
 
-/* Paragraph styles */
+/* Instrucciones y otros estilos */
+h2 {
+    color: #d75b0d;
+    margin-top: 20px;
+    border-bottom: 2px solid #d75b0d;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
 p {
     margin-bottom: 15px;
-    font-size: 1em; /* Texto un poco más grande */
-    text-align: center; /* Centrar el texto */
+    font-size: 1em;
+    text-align: center;
 }
 
-/* List styles */
 ul {
     font-size: 0.8em;
-    margin-left: 20px; /* Indentación para listas desordenadas */
+    margin-left: 20px;
     margin-bottom: 15px;
-    text-align: left; /* Alinear a la izquierda para listas */
+    text-align: left;
 }
 
-/* Textarea styling */
 textarea {
-    width: 100%; /* Ancho completo */
-    padding: 10px; /* Relleno interno */
-    border: 1px solid #d75b0d; /* Borde de color cálido */
-    border-radius: 4px; /* Bordes redondeados */
-    resize: vertical; /* Permitir redimensionar verticalmente */
-    font-size: 1em; /* Tamaño de fuente consistente */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d75b0d;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Button styling */
 button {
-    background-color: #d75b0d; /* Fondo de botón cálido */
-    color: white; /* Texto blanco */
-    padding: 10px 15px; /* Relleno interno */
-    border: none; /* Sin borde por defecto */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cursor de puntero al pasar */
-    font-size: 1em; /* Tamaño de fuente consistente */
-    transition: background-color 0.3s; /* Transición suave para efecto hover */
-    display: block; /* Hacer que el botón se comporte como bloque */
-    margin: 20px auto; /* Centrar el botón */
+    background-color: #d75b0d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 20px auto;
 }
 
-/* Button hover effect */
 button:hover {
-    background-color: #c66b0e; /* Color más oscuro al pasar el ratón */
+    background-color: #c66b0e;
 }
 
-/* Output and messages styling */
 #output, #messages {
-    border: 1px solid #d75b0d; /* Borde de color cálido */
+    border: 1px solid #d75b0d;
     padding: 10px;
     margin-top: 20px;
-    background-color: #fff; /* Fondo blanco para áreas de contenido */
-    border-radius: 4px; /* Bordes redondeados */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    text-align: center; /* Centrar el texto dentro de los recuadros */
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
