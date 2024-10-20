@@ -1,5 +1,5 @@
 import qrcode
-url = "https://github.com/Praisel04/VirtualMachine/tree/main"
+url = "YourURL.com"
 
 qr = qrcode.QRCode(version=1, box_size= 10, border=2)
 
