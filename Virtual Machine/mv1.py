@@ -1,19 +1,12 @@
-import argparse
-
-# CODIGO REALIZADO POR :
-#     Iván Seco
-#     Mario Suarez del Hierro
-#     Javier Poza Garijo
-#FECHA DE INICIO: 14/10/2024 
-#ULTIMA MODIFICACION: 20/10/2024
+import copy
 
 class VirtualMachine:
-
+    
     """
     Initialization of the variables that represent the program instructions
 
     """
-    
+
     # Instructions
     UNDO = "UNDO"
     REDO = "REDO"
@@ -24,10 +17,10 @@ class VirtualMachine:
     UPPER = "UPPER"
     LOWER = "LOWER"
     CLEAR = "CLEAR"
-    HELP = "HELP"
+    REPLACE = "REPLACE"
 
     def __init__(self):
-    # Necessary stacks for the Virtual Machine
+        # Necessary stacks for the Virtual Machine
         """
         Constructor for the VirtualMachine class.
 
@@ -39,11 +32,12 @@ class VirtualMachine:
 
         """
 
-        self.changeStack = []      
-        self.redoStack = []         
-        self.copyStack = []         
-        self.instructions = []    
-        self.messages = [] 
+        self.changeStack = []
+        self.undoStack = []  # Stack to store states for undo
+        self.redoStack = []  # Stack to store states for redo
+        self.copyStack = []
+        self.instructions = []
+        self.messages = []
 
     def loadProgram(self, instructions):
         """
@@ -54,7 +48,7 @@ class VirtualMachine:
             
         """
         self.reset()
-        self.instructions = instructions  # Load the instruction list
+        self.instructions = instructions
 
     def execute(self):
         """Execute the loaded instructions in the machine"""
@@ -73,16 +67,18 @@ class VirtualMachine:
                 text = instr[1] if len(instr) > 1 else ""
                 self.writeText(text)
             elif command.upper() == self.SHOW:
-                    self.showAddedText()
+                self.showAddedText()
             elif command.upper() == self.UPPER:
                 self.upper()
             elif command.upper() == self.LOWER:
                 self.lower()
             elif command.upper() == self.CLEAR:
                 self.clear()
-            elif command.upper() == self.HELP:
-                self.help()
-                
+            elif command.upper() == self.REPLACE:
+                if len(instr) > 2:
+                    original_word = instr[1]
+                    new_word = instr[2]
+                    self.replaceWord(original_word, new_word)
             else:
                 self.messages.append("Invalid or empty command.")
 
@@ -91,6 +87,7 @@ class VirtualMachine:
         Reset the stacks (changeStack, redoStack, copyStack) to their initial state.
         """
         self.changeStack = []
+        self.undoStack = []
         self.redoStack = []
         self.copyStack = []
         self.messages = []
@@ -106,36 +103,39 @@ class VirtualMachine:
             text (string): This arg takes the word that is going to be write and append it inside the stack.
         """
         if text:
+            self.saveToUndo()  # Save current state to undo stack
             self.changeStack.append(text)
-            self.clearRedo()  # Clear redo stack when new text is added
-            self.messages.append(f"Executing writeText fuction. Text has been written. Current text: {self.getCurrentText()}")
+            self.clearRedo()
+            self.messages.append(f"Executing writeText function. Current text: {self.getCurrentText()}")
 
     def undo(self):
         """
         FUNCTION undo
         This function undoes the last action made in the main stack and storing it. 
         """
-        
-        if len(self.changeStack) > 0:
-            last_change = self.changeStack.pop()  # Remove last change
-            self.redoStack.append(last_change)  # Save in redo
-            self.messages.append(f"Executing undo fuction. Undo performed. Current text: {self.getCurrentText()}")
+        if len(self.undoStack) > 0:
+            # Move current state to redo stack before undoing
+            self.redoStack.append(copy.deepcopy(self.changeStack))
+            # Restore the last state from the undo stack
+            self.changeStack = self.undoStack.pop()
+            self.messages.append(f"Undo performed. Current text: {self.getCurrentText()}")
         else:
-            self.messages.append("Executing undo fuction. No more changes to undo.")
+            self.messages.append("No more changes to undo.")
 
     def redo(self):
-        
         """
         Function redo
         This function redoes the last undone action made in the main stack and stores it. 
 
         """
         if len(self.redoStack) > 0:
-            redone_text = self.redoStack.pop()  # Redo last change
-            self.changeStack.append(redone_text)  # Save in changes
-            self.messages.append(f"Executing redo fuction. Redo performed. Current text: {self.getCurrentText()}")
+            # Save current state to undo stack before redoing
+            self.undoStack.append(copy.deepcopy(self.changeStack))
+            # Restore the state from the redo stack
+            self.changeStack = self.redoStack.pop()
+            self.messages.append(f"Redo performed. Current text: {self.getCurrentText()}")
         else:
-             self.messages.append("Executing redo fuction. No more changes to redo.")
+            self.messages.append("No more changes to redo.")
 
     def copyWord(self, word):
         """
@@ -148,11 +148,11 @@ class VirtualMachine:
         """
         if word in self.getCurrentText():
             if len(self.copyStack) > 0:
-                self.copyStack.pop()  # Empty any previously copied word
+                self.copyStack.pop()
             self.copyStack.append(word)
-            self.messages.append(f"Executing copyWord fuction. Word '{word}' copied.")
+            self.messages.append(f"Word '{word}' copied.")
         else:
-            self.messages.append(f"Executing copyWord fuction. The word '{word}' is not found in the current text.")
+            self.messages.append(f"The word '{word}' is not found in the current text.")
 
     def pasteWord(self):
         """
@@ -162,15 +162,15 @@ class VirtualMachine:
         """
         if len(self.copyStack) > 0:
             word = self.copyStack[-1]
+            self.saveToUndo()  # Save current state to undo stack before pasting
             self.changeStack.append(word)
-            self.messages.append(f"Executing pasteWord fuction. Word '{word}' pasted into the current text.")
+            self.messages.append(f"Word '{word}' pasted into the current text.")
         else:
-           self.messages.append("Executing pasteWord fuction. There is no word copied.")
+            self.messages.append("There is no word copied.")
 
     def clearRedo(self):
         """
         Clear the redo stack when a new change is made
-
         """
         self.redoStack = []
 
@@ -182,7 +182,7 @@ class VirtualMachine:
             str: The current text
         """
         return ' '.join(self.changeStack)
-    
+
     def showAddedText(self):
         """
         Show the last added text from the change stack.
@@ -190,37 +190,27 @@ class VirtualMachine:
         This function retrieves the last element from the change stack and displays it.
         If the stack is empty, it notifies the user.
         """
-
         last_text = self.changeStack[-1] if len(self.changeStack) > 0 else None
         if last_text is not None:
-            self.messages.append(f"Executing showAddedText fuction. The current text is: '{self.getCurrentText()}'")
+            self.messages.append(f"The current text is: '{self.getCurrentText()}'")
         else:
-            self.messages.append("Executing showAddedText fuction. Cannot display the last element from the stack because it is empty.")
+            self.messages.append("Cannot display the last element from the stack because it is empty.")
 
     def upper(self):
-        
-        """
-        Upper function
-        This function converts the current text to uppercase and stores it in the stack.
-        It clears the current stack and adds the new uppercase text to it.
-        """
-        mayustext = self.getCurrentText().upper()
+        self.saveToUndo()  # Save current state to undo stack before changing case
+        upper_text = self.getCurrentText().upper()
         self.changeStack.clear()
-        self.changeStack.append(mayustext)
-        self.messages.append(f"Executing mayus fuction. Current text: {mayustext}")
+        self.changeStack.append(upper_text)
+        self.clearRedo()
+        self.messages.append(f"Current text: {upper_text}")
 
     def lower(self):
-        
-        
-        """
-        Lower function
-        This function converts the current text to lowercase and stores it in the stack.
-        It clears the current stack and adds the new lowercase text to it.
-        """
-        lowertext = self.getCurrentText().lower()
+        self.saveToUndo()  # Save current state to undo stack before changing case
+        lower_text = self.getCurrentText().lower()
         self.changeStack.clear()
-        self.changeStack.append(lowertext)
-        self.messages.append(f"Executing lower fuction. Current text: {lowertext}")
+        self.changeStack.append(lower_text)
+        self.clearRedo()
+        self.messages.append(f"Current text: {lower_text}")
 
     def clear(self):
         """
@@ -229,22 +219,55 @@ class VirtualMachine:
         This function deletes everything has been written in the stack.
         If the stack is empty, it notifies the user.
         """
-
         if len(self.changeStack) > 0:
-            self.reset()
-            self.messages.append("Executing clear function. Text has been deleted correctly")
+            self.saveToUndo()  # Save current state to undo stack before clearing
+            self.changeStack = []
+            self.clearRedo()
+            self.messages.append("Text has been deleted.")
         else:
-            self.messages.append("Executing clear function. There is not text in the stack.")    
+            self.messages.append("There is no text in the stack.")
 
-    def help(self):
+    def replaceWord(self, original, new_word):
         """
-        Help function
-        This function shows the available arguments for the program.
-        The arguments are: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit
-        """
-        self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit")
-        self.messages.append("For more information, please refer to the README.md file in the QR code.")
+        Replace words
+        
+        This function searches for and replaces an existing word in the text stored in the stack with a new word.
+        If the original word is not found, it returns an error message indicating that the word is not stored in the stack.
 
+        Args:
+            original (string): This arg is the word that is going to be replaced.
+            new_word (string): This arg is the word that is going to replace.
+        """
+        current_text = self.changeStack
+        encontrar = False
+
+        # Save the current state to undo stack before modifying
+        self.saveToUndo()
+
+        # Create a temporary stack to hold the new words
+        temp_stack = []
+        
+        # Iterate through the current stack
+        for word in current_text:
+            if word == original:
+                temp_stack.append(new_word)  # Replace the word
+                encontrar = True
+            else:
+                temp_stack.append(word)  # Keep the original word
+
+        if encontrar:
+            # Update the changeStack with the modified text
+            self.changeStack = temp_stack
+            self.clearRedo()  # Clear redo stack since this is a new change
+            self.messages.append(f"Replaced '{original}' with '{new_word}'. Current text: {self.getCurrentText()}")
+        else:
+            self.messages.append(f"Word '{original}' not found in the current text.")
+
+
+
+    def saveToUndo(self):
+        """ Save the current state to the undo stack """
+        self.undoStack.append(copy.deepcopy(self.changeStack))
 
 # Function to read the custom text file
 def read_instructions_from_file(file):
@@ -261,7 +284,6 @@ def read_instructions_from_file(file):
     Returns:
         list: A list of instructions, where each instruction is a list containing a command and its arguments
     """
-
     instructions = []
     with open(file, 'r') as f:
         for line in f:
@@ -271,10 +293,9 @@ def read_instructions_from_file(file):
             instructions.append([command] + arguments)
     return instructions
 
-
 # Set up argparse to accept command-line arguments
 if __name__ == "__main__":
-    
+    import argparse
     parser = argparse.ArgumentParser(description="Simple virtual machine to execute instructions from a file.")
     parser.add_argument('file', type=str, help="The text file with instructions")
     args = parser.parse_args()
@@ -288,3 +309,4 @@ if __name__ == "__main__":
     # Load the instructions and execute them
     machine.loadProgram(instructions)
     machine.execute()
+
