@@ -31,6 +31,11 @@
 >      python .\app.py
 >Tras ejecutar esto, en al terminal saldrá una ruta donde se estará ejecutando el servidor.
 
+### INTRUCCIONES DE USO
+Este editor de texto está hecho de una manera que el usuario pueda usarlo de una forma sencilla.
+
+En el cuadro donde pone *Enter instruccions here...* escribiremos los comandos deseados ( el listado de comandos está indicado debajo, tambien puede usar el comando **HELP** para mas información.)  
+
 
 
 >
@@ -47,8 +52,9 @@ El codigo implementa una variedad de archivos.
 # Funcionalidades de la Máquina Virtual
 ### Métodos Principales
 
-- **__init__():** Constructor de la clase, aquí se inicializan las 5 pilas que usará el programa, y el listado de instrucciones
+- **__init__():** Constructor de la clase, aquí se inicializan las 5 pilas que usará el programa, y el listado de instrucciones.
   
+  Para este editor de texto, queríamos usar la menor cantidad de pilas posibles, pero evitando que se produzcan fallos porque dos funciones quieran entrar a la vez a alguna pila por ello hemos usado las       siguientes:
   - changeStack: Pila principal donde se guarda el texto que se escribe y las modificaciones que se hacen.
   - redoStack: Pila que se encarga de guardar los cambios de UNDO y REDO.
   - copyStack: Pila que se encarga de guardar los cambios de COPY y PASTE.
@@ -87,12 +93,15 @@ El codigo implementa una variedad de archivos.
 - **help():** Funcion que muestra todos los comandos disponibles usando la pila de mensajes.
 
 
-### CARACTERÍSTICAS CLAVE
-Lo mas importante de este proyecto es poder hacer uso de la programación para hacer música y sobretodo poder modificarla en directo, haciendo uso de variables y jugando con operaciones básicas como If get o while.
+### OTROS ELEMENTOS DEL PROGRAMA
+Como se ha indicado antes, este editor de texto cuenta con una pequeña página web que permite ver al usuario de una manera mas sencilla que es lo que se está ejecutando.
 
-Por otro lado, el poder modificar el sonido de forma directa usando bucles for te abre un mundo de posibilidades para cualquier estilo de música, en concreto para este proyecto el poder hacer drops para la canción.
+Esta página se divide en tres secciones
+  - Título + QR Code: Un código QR que nos lleva directamente a este repositorio.
+  - Intrucciones: Una pequeña definicion de como funciona el editor y de como escribir los comandos.
+  - OUTPUT: Es donde se mostrará el texto directamente
+  - Command Control: Se muestra el control de los comando utilizados por el usuario.
 
-Este programa usa programación en **Ruby**, un lenguaje que te exige tener un poco de idea de programacion (sobretodo en bucles) pero que aun así es sencillo de aprender si se trabaja.
 
 >[!NOTE]
 >### DOCUMENTACIÓN
