@@ -20,14 +20,15 @@ def execute():
     data = request.json  # Recibe las instrucciones enviadas desde el frontend
     instructions = data.get('instructions', [])
 
-    # Crear una instancia de la máquina virtual
+    # Create the instance for the virtual Machine
     machine = VirtualMachine()
 
-    # Cargar las instrucciones y ejecutarlas
+    # Load the instruccions and exucute them
     machine.loadProgram(instructions)
     machine.execute()
 
-    # Devolver el texto actual y los mensajes de la ejecución
+
+    # Return the current text and execution messages
     return jsonify({
         'result': machine.getCurrentText(),
         'messages': machine.messages  # Enviar todos los mensajes capturados
@@ -37,6 +38,9 @@ def execute():
 @app.route('/')
 def index():
     
+    """
+    Handle the main route (GET request) to render the main page (index.html)
+    """
     return render_template('index.html')
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@ import argparse
 #     Iván Seco
 #     Mario Suarez del Hierro
 #     Javier Poza Garijo
-#FECHA DE INICIO: 14/10/2024 
-#ULTIMA MODIFICACION: 20/10/2024
+# FECHA DE INICIO: 14/10/2024 
+# ULTIMA MODIFICACION: 21/10/2024
 
 class VirtualMachine:
 
@@ -231,8 +231,9 @@ class VirtualMachine:
         """
 
         if len(self.changeStack) > 0:
-            self.reset()
-            self.messages.append("Executing clear function. Text has been deleted correctly")
+           self.changeStack.clear()
+           self.messages.clear()
+           self.messages.append("Executing clear function. Text has been deleted correctly")
         else:
             self.messages.append("Executing clear function. There is not text in the stack.")    
 
