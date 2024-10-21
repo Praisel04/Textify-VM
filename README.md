@@ -74,6 +74,7 @@ El codigo implementa una variedad de archivos.
 - **UPPER:** Convierte todo el texto a mayúsculas
 - **LOWER:** Convierte todo el texto a minúsculas
 - **CLEAR:** Borra todos los mensajes de la terminal
+- **REPLACE:** Reemplaza una palabra existente por otra que el usuario elija.
 - **HELP** Muestra un pequeño mensaje mostrando todos los comando disponibles
 >[!NOTE]
 >**TODOS LOS COMANDO MOSTRARÁN UN MENSAJE DE ERROR SI NO PUEDEN EJECUTAR LA INSTRUCCIÓN**
@@ -90,6 +91,7 @@ El codigo implementa una variedad de archivos.
 - **upper():** Función para pasar todo el texto a mayúsculas.
 - **lower():** Función para pasar todo el texto a minúsculas.
 - **clear():** Función para borrar todos los mensajes de la terminal.
+- **replaceWord(original_word, new_word):** Función para reemplazar palabras.
 - **help():** Funcion que muestra todos los comandos disponibles usando la pila de mensajes.
 
 
@@ -105,21 +107,6 @@ Esta página se divide en tres secciones
 
 >[!NOTE]
 >### DOCUMENTACIÓN
-> **SONIC PI:** https://sonic-pi.net/tutorial.html
->
-> **MP3 CUTTER:** https://mp3cut.net/es/
->
-> **VOCAL REMOVER:** https://vocalremover.org/splitter-ai
->
-> **MELODY GENRATOR:** https://dopeloop.ai/melody-generator/
->
-> **SONG BPM:** https://songbpm.com/
->
-> **TECHNO SAMPLES:**
->    https://www.loopmasters.com/genres/40-Techno?srsltid=AfmBOorgyWB2plTl2cSTh1MSIXF0XR28i28we7g5g0hW45qDhZ6-D9I-
->
->    https://samplefocus.com/
->
-> **README GUIDE:** https://tiloid.com/p/readme-md-the-ultimate-guide
+> 
 >
 > **CHAT GPT 4**
