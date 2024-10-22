@@ -1,8 +1,8 @@
-# Virtual Machine Text Editor
+# TEXTTIFY VIRTUAL MACHINE
 **Bienvenidos a la presentación de mi proyecto de una máquina virtual básica de edición de texto para la Universidad Camilo José Cela.** 
 **En este proyecto nos han pedido hacer una pequeña Máquina Virtual basada en pilas, en este caso he utilizado Python.**
 
-**El codigo se basa en una serie de funciones que se van a encargar de realizar el funcionamiento básico de un editor de texto como escribir, copiar, pegar, deshacer, rehacer...**
+**El código se basa en una serie de funciones que se van a encargar de realizar el funcionamiento básico de un editor de texto como escribir, copiar, pegar, deshacer, rehacer...**
 
 
 > ## INTEGRANTES DEL PROYECTO
@@ -16,9 +16,10 @@
 >## REQUISITOS
 >Tener Python instalado.
 >
->Instalar Flask
+>Instalar Flask y QrCode
 >
->     pip install flask  
+>     pip install flask
+>     pip install qrcode[pil]
 >
 >Descargar la carpeta de *VirtualMachine*
 >
@@ -39,9 +40,12 @@ En el cuadro donde pone *Enter instruccions here...* escribiremos los comandos d
 >  - LAS INTRUCCIONES DEBERÁN IR SEPARADAS POR LINEAS.
 >  - SOLO SE PUEDE INTRODUCIR UNA PALABRA POR SENTENCIA
 >  - DA IGUAL SI ES MAYUSCULA O MINUSCULA.
-Tras escribir la sentencia deseada, se deberá hacer click en el botón **EXECUTE**, una vez hecho eso se verá en el campo **OUTPUT** el texto resultante y en **COMMAND CONTROL** el listado de ejecución de comandos
-
 >
+
+Tras escribir la sentencia deseada, se deberá hacer click en el botón **EXECUTE**, una vez hecho eso se verá en el campo **OUTPUT** el texto resultante y en **COMMAND CONTROL** el listado de ejecución de comandos.
+
+El botón **DOWNLOAD PDF** permitirá descargarte un PDF con el output del texto y la ejecución de los comandos.
+
 ### EXPLICACION BASICA DEL PROGRAMA
 El codigo implementa una variedad de archivos.
 
@@ -106,6 +110,7 @@ Esta página se divide en tres secciones
   - Intrucciones: Una pequeña definicion de como funciona el editor y de como escribir los comandos.
   - OUTPUT: Es donde se mostrará el texto directamente
   - Command Control: Se muestra el control de los comando utilizados por el usuario.
+  - PDF Downloader: Se ha implementado una libreria para poder descargar los textos en formato PDF.
 
 
 >[!NOTE]
@@ -113,3 +118,11 @@ Esta página se divide en tres secciones
 > 
 >
 > **CHAT GPT 4**
+> **PYTHON DOC**
+> **JavaScript DOC**
+> **HTML DOC**
+> **CSS DOC**
+> **FLASK DOC**
+> **JSPDF DOC**
+> **QRCODE DOC**
+>
