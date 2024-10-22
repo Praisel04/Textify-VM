@@ -34,7 +34,7 @@ def execute():
         'messages': machine.messages  # Enviar todos los mensajes capturados
     })
 
-# Ruta para la página principal (GET request)
+# Route for the main page
 @app.route('/')
 def index():
     
