@@ -18,7 +18,7 @@
 >
 >Instalar Flask
 >
->     pip install Flask  
+>     pip install flask  
 >
 >Descargar la carpeta de *VirtualMachine*
 >
@@ -35,8 +35,11 @@
 Este editor de texto está hecho de una manera que el usuario pueda usarlo de una forma sencilla.
 
 En el cuadro donde pone *Enter instruccions here...* escribiremos los comandos deseados ( el listado de comandos está indicado debajo, tambien puede usar el comando **HELP** para mas información.)  
-
-
+>[!NOTE]
+>  - LAS INTRUCCIONES DEBERÁN IR SEPARADAS POR LINEAS.
+>  - SOLO SE PUEDE INTRODUCIR UNA PALABRA POR SENTENCIA
+>  - DA IGUAL SI ES MAYUSCULA O MINUSCULA.
+Tras escribir la sentencia deseada, se deberá hacer click en el botón **EXECUTE**, una vez hecho eso se verá en el campo **OUTPUT** el texto resultante y en **COMMAND CONTROL** el listado de ejecución de comandos
 
 >
 ### EXPLICACION BASICA DEL PROGRAMA
