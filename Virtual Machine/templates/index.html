@@ -14,13 +14,13 @@
         <div class="header">
             <h1>TEXT EDITOR</h1>
             <img src="{{ url_for('static', filename='qrcode.png') }}" alt="QR Code" class="qr-code">
-            <img src="{{ url_for('static', filename='testify.png') }}" alt="QR Code" class="logo">
+            <img src="{{ url_for('static', filename='textify.png') }}" alt="QR Code" class="logo">
         </div>
 
         <h2>INSTRUCTIONS</h2>
         <p>
             This is a small virtual machine that replicates the behavior of a text editor. The instructions must be
-            separated by new lines.<br>
+            separated by new lines and <em> 1 word per command.</em><br>
             Some examples of instructions that can be executed are: <br>
         <ul>
             <li>WRITE Hello</li>
@@ -32,8 +32,10 @@
 
         <textarea id="instructions" rows="5" cols="50" placeholder="Enter instructions here..."></textarea>
         <br>
-        <button onclick="executeInstructions()">Execute</button>
-        <button onclick="downloadPDF()">Download PDF</button>
+        <div class="button">
+            <button onclick="executeInstructions()">Execute</button>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
 
         <h2>OUTPUT</h2>
         <p>Here is the output, only shows the resulting words</p>
@@ -72,40 +74,40 @@
         }
 
         function downloadPDF() {
-        // Create a new PDF
-        const { jsPDF } = window.jspdf;
-        // Create the document
-        const doc = new jsPDF(
-        );
+            // Create a new PDF
+            const { jsPDF } = window.jspdf;
+            // Create the document
+            const doc = new jsPDF(
+            );
 
-        // Default text of the PDF
-        const defaultText = "Thanks for using our Text Editor. We hope you enjoyed it.\n\nFor more info about the project, visit: \nhttps://github.com/Praisel04/VirtualMachine";
+            // Default text of the PDF
+            const defaultText = "Thanks for using our Text Editor. We hope you enjoyed it.\n\nFor more info about the project, visit: \nhttps://github.com/Praisel04/VirtualMachine";
 
-        // Obtain the text of the field with the ID selected
-        const outputText = document.getElementById('output').textContent;
-        // Replace the BR of the previous fuction with \n
-        const messageText = document.getElementById('messages').textContent.replace("<br>", "\n");
+            // Obtain the text of the field with the ID selected
+            const outputText = document.getElementById('output').textContent;
+            // Replace the BR of the previous fuction with \n
+            const messageText = document.getElementById('messages').textContent.replace("<br>", "\n");
 
-        
-        
-        // Add the Default text to the designated coordinates
-        doc.text(defaultText, 10, 20);
 
-        // Add the Output text to the desiganted coordinates
-        doc.text("Output:", 10, 60);
-        doc.text(outputText, 10, 70);
 
-        // Add the Command Control messages to the designated coordinates
-        doc.text("Messages:", 10, 100);
-        // Use FOR to print the messages in different Y positions
-        for (i in messagesList){
-            doc.text(messagesList[i], 10, 110+i*10);
-        }
-        
-        
+            // Add the Default text to the designated coordinates
+            doc.text(defaultText, 10, 20);
 
-        // Download the PDF
-        doc.save('soria.pdf');
+            // Add the Output text to the desiganted coordinates
+            doc.text("Output:", 10, 60);
+            doc.text(outputText, 10, 70);
+
+            // Add the Command Control messages to the designated coordinates
+            doc.text("Messages:", 10, 100);
+            // Use FOR to print the messages in different Y positions
+            for (i in messagesList) {
+                doc.text(messagesList[i], 10, 110 + i * 10);
+            }
+
+
+
+            // Download the PDF
+            doc.save('soria.pdf');
         }
     </script>
 </body>
