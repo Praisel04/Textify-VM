@@ -24,6 +24,7 @@ class VirtualMachine:
     UPPER = "UPPER"
     LOWER = "LOWER"
     CLEAR = "CLEAR"
+    REPLACE = "REPLACE"
     HELP = "HELP"
 
     def __init__(self):
@@ -38,8 +39,8 @@ class VirtualMachine:
         - instructions: List to store instructions
 
         """
-
-        self.changeStack = []      
+        self.changereplaceWord = []
+        self.changeStack = []
         self.redoStack = []         
         self.copyStack = []         
         self.instructions = []    
@@ -82,6 +83,11 @@ class VirtualMachine:
                 self.clear()
             elif command.upper() == self.HELP:
                 self.help()
+            elif command.upper() == self.REPLACE:
+                if len(instr) > 2:
+                    original_word = instr[1]
+                    new_word = instr[2]
+                    self.replaceWord(original_word, new_word)
                 
             else:
                 self.messages.append("Invalid or empty command.")
@@ -90,6 +96,7 @@ class VirtualMachine:
         """
         Reset the stacks (changeStack, redoStack, copyStack) to their initial state.
         """
+        self.changereplaceWord = []
         self.changeStack = []
         self.redoStack = []
         self.copyStack = []
@@ -115,13 +122,18 @@ class VirtualMachine:
         FUNCTION undo
         This function undoes the last action made in the main stack and storing it. 
         """
-        
+
         if len(self.changeStack) > 0:
-            last_change = self.changeStack.pop()  # Remove last change
-            self.redoStack.append(last_change)  # Save in redo
-            self.messages.append(f"Executing undo fuction. Undo performed. Current text: {self.getCurrentText()}")
+            if len(self.changereplaceWord) > 0:     #   I check if the changereplaceWord variable has something
+                self.redoStack.append(self.changeStack.copy())  # Save the removed change for redo
+                self.changeStack = self.changereplaceWord.pop()  # Restore the last full state
+                self.messages.append(f"Undo performed. Current text: {self.getCurrentText()}")
+            else:
+                last_change = self.changeStack.pop()  # Remove last change
+                self.redoStack.append(last_change)  # Save the removed change for redo
+                self.messages.append(f"Undo performed. Current text: {self.getCurrentText()}")
         else:
-            self.messages.append("Executing undo fuction. No more changes to undo.")
+            self.messages.append("Executing undo function. No more changes to undo.")
 
     def redo(self):
         
@@ -131,9 +143,13 @@ class VirtualMachine:
 
         """
         if len(self.redoStack) > 0:
-            redone_text = self.redoStack.pop()  # Redo last change
-            self.changeStack.append(redone_text)  # Save in changes
-            self.messages.append(f"Executing redo fuction. Redo performed. Current text: {self.getCurrentText()}")
+            if self.redoStack and isinstance(self.redoStack[-1], list): # I check if the last element in copy is a full state (a list)
+                self.changeStack = self.redoStack.pop()  #Redo last change
+                self.messages.append(f"Undo to previous state. Current text: {self.getCurrentText()}")
+            else:
+                redone_text = self.redoStack.pop()  # Redo last change
+                self.changeStack.append(redone_text)  # Save in changes
+                self.messages.append(f"Executing redo fuction. Redo performed. Current text: {self.getCurrentText()}")
         else:
              self.messages.append("Executing redo fuction. No more changes to redo.")
 
@@ -235,7 +251,41 @@ class VirtualMachine:
            self.messages.clear()
            self.messages.append("Executing clear function. Text has been deleted correctly")
         else:
-            self.messages.append("Executing clear function. There is not text in the stack.")    
+            self.messages.append("Executing clear function. There is not text in the stack.")  
+            
+    
+    def replaceWord(self, original, new_word):
+        """
+        Replace words
+        
+        This function searches for and replaces an existing word in the text stored in the stack with a new word.
+        If the original word is not found, it returns an error message indicating that the word is not stored in the stack.
+
+        Args:
+            original (string): This arg is the word that is going to be replaced.
+            new_word (string): This arg is the word that is going to replace.
+        """
+        
+        encontrar = False 
+            
+        # Save the complete state of the changeStack before performing the replacement
+        previous_state = self.changeStack.copy()
+
+        
+        for i in range(len(self.changeStack)):
+            if self.changeStack[i] == original:
+                self.changeStack[i] = new_word  # Replace the word
+                encontrar = True
+
+        if encontrar:
+            self.changereplaceWord = []  # Clean changereplaceWord
+            self.changereplaceWord.append(previous_state)  # Save previous state in changereplaceWord
+            self.messages.append(f"Replaced '{original}' with '{new_word}'. Current text: {self.getCurrentText()}")
+        else:
+            self.messages.append(f"Word '{original}' not found in the current text.")
+
+
+
 
     def help(self):
         """
