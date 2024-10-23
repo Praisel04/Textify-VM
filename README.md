@@ -93,7 +93,7 @@ El codigo implementa una variedad de archivos.
 - **undo():**  Deshace el último cambio realizado guardado en la pila se cambios. Guarda la palabra cambiada en la pila para poder hacer un REDO.
 - **redo():**  Rehace el último cambio deshecho.
 - **copyWord(palabra):**  Copia la palabra del texto actual que el usuario pase como parametro de la función. Se guarda en la pila copyStack, para poder ser utilizada por la función PASTE.
-- **paste():**   Pega la última palabra copiada al texto actual. Cuando se ejecuta la función la palabra no sale de la pila, para poder ser pegada mas veces
+- **pasteWord():**   Pega la última palabra copiada al texto actual. Cuando se ejecuta la función la palabra no sale de la pila, para poder ser pegada mas veces
 - **clearRedo():** Función para limpiar la pila del REDO
 - **getCurrentText():**  Función que se usa para obtener el texto actual, simplemente para uso entre funciones.
 - **showAddedText():** Función para mostar al usuario el texto actual.
