@@ -120,11 +120,18 @@ Esta página se divide en tres secciones
 > 
 >
 > **CHAT GPT 4**
+>
 > **PYTHON DOC**
+>
 > **JavaScript DOC**
+>
 > **HTML DOC**
+>
 > **CSS DOC**
+>
 > **FLASK DOC**
+>
 > **JSPDF DOC**
+>
 > **QRCODE DOC**
 >
