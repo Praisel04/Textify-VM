@@ -54,7 +54,7 @@ El codigo implementa una variedad de archivos.
   - **genQrCode.py:** Es el archivo dedicado a la generación del codigo QR, donde hay que cambiar la URL y tras ejecutarlo, introducir la imagen en la carpeta static.
   - **templates/index.html:** Contiene la estructura de l página web.
   - **static/style.css:** Contiene el formato de la página web.
-  - **static/qrcode.png:* Contiene la imagen del codigo QR.
+  - **static/qrcode.png:** Contiene la imagen del codigo QR.
   - **static/textify.png:** Contiene la imagen del logo de Textify VM.
 
 # Funcionalidades de la Máquina Virtual
