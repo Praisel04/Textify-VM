@@ -68,6 +68,7 @@ El codigo implementa una variedad de archivos.
   - copyStack: Pila que se encarga de guardar los cambios de COPY y PASTE.
   - instructions: Pila encargada de almacenar las instrucciones del usuario.
   - messages: Pila encargada de almacenar los mensajes que se van a mostrar al usaurio.
+  - changeReplaceWord: Pila encargada de almacenar las palabras que se van a reemplazar.
       
 - **loadProgram(instrucciones):** Cargar una lista de instrucciones para ser ejecutadas.
 - **execute():** Ejecuta las instrucciones cargadas en la máquina virtual.
