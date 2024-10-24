@@ -16,10 +16,12 @@
 >## REQUISITOS
 >Tener Python instalado.
 >
->Instalar Flask y QrCode
+>Instalar Flask (framework), QrCode(generación del codigo QR) y googletranslator (Traductor de textos)
 >
 >     pip install flask
 >     pip install qrcode[pil]
+>     pip install googletrans==4.0.0-rc1
+>
 >
 >Descargar la carpeta de *VirtualMachine*
 >
@@ -69,6 +71,7 @@ El codigo implementa una variedad de archivos.
   - instructions: Pila encargada de almacenar las instrucciones del usuario.
   - messages: Pila encargada de almacenar los mensajes que se van a mostrar al usaurio.
   - changeReplaceWord: Pila encargada de almacenar las palabras que se van a reemplazar.
+  - Translator(): Se inicia la clase translator para poder traducir textos.
       
 - **loadProgram(instrucciones):** Cargar una lista de instrucciones para ser ejecutadas.
 - **execute():** Ejecuta las instrucciones cargadas en la máquina virtual.
@@ -84,7 +87,9 @@ El codigo implementa una variedad de archivos.
 - **LOWER:** Convierte todo el texto a minúsculas
 - **CLEAR:** Borra todos los mensajes de la terminal
 - **REPLACE:** Reemplaza una palabra existente por otra que el usuario elija.
-- **HELP** Muestra un pequeño mensaje mostrando todos los comando disponibles
+- **TRANSLATE:** Traduce el texto original al idioma pedido
+- **HELP:** Muestra un pequeño mensaje mostrando todos los comando disponibles
+- **HELPTRANSLATE:** Muestra un pequeño mensaje de como se debe usar la funcion *Translate*
 >[!NOTE]
 >**TODOS LOS COMANDO MOSTRARÁN UN MENSAJE DE ERROR SI NO PUEDEN EJECUTAR LA INSTRUCCIÓN**
 
@@ -101,6 +106,7 @@ El codigo implementa una variedad de archivos.
 - **lower():** Función para pasar todo el texto a minúsculas.
 - **clear():** Función para borrar todos los mensajes de la terminal.
 - **replaceWord(original_word, new_word):** Función para reemplazar palabras.
+- **translateText(target_language)**: Funcion para traducir el texto. El parametro de entrada será el idioma al que se quiere traducir, introduciendo las dos primeras letras (en = English, es = Spanish)
 - **help():** Funcion que muestra todos los comandos disponibles usando la pila de mensajes.
 
 
