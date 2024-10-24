@@ -1,6 +1,13 @@
 # TEXTIFY VIRTUAL MACHINE
 **Bienvenidos a la presentación de mi proyecto de una máquina virtual básica de edición de texto para la Universidad Camilo José Cela.** 
-**En este proyecto nos han pedido hacer una pequeña Máquina Virtual basada en pilas, en este caso he utilizado Python.**
+**En este proyecto nos han pedido hacer una pequeña Máquina Virtual basada en pilas.**
+
+**Lenguajes Utilizados (Programacion, tipo y estilo)**
+  - Python.
+  - JavaScript
+  - HTML
+  - CSS
+    
 
 **El código se basa en una serie de funciones que se van a encargar de realizar el funcionamiento básico de un editor de texto como escribir, copiar, pegar, deshacer, rehacer...**
 
