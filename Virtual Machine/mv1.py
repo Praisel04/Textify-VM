@@ -1,11 +1,12 @@
 import argparse
+from googletrans import Translator  #We added the library to be able to use the Google translator
 
 # CODIGO REALIZADO POR :
 #     Iván Seco
 #     Mario Suarez del Hierro
 #     Javier Poza Garijo
 # FECHA DE INICIO: 14/10/2024 
-# ULTIMA MODIFICACION: 21/10/2024
+# ULTIMA MODIFICACION: 24/10/2024
 
 class VirtualMachine:
 
@@ -25,7 +26,9 @@ class VirtualMachine:
     LOWER = "LOWER"
     CLEAR = "CLEAR"
     REPLACE = "REPLACE"
+    TRANSLATE = "TRANSLATE"
     HELP = "HELP"
+    HELPTRANSLATE = "HELPTRANSLATE"
 
     def __init__(self):
     # Necessary stacks for the Virtual Machine
@@ -45,6 +48,7 @@ class VirtualMachine:
         self.copyStack = []         
         self.instructions = []    
         self.messages = [] 
+        self.translator = Translator()
 
     def loadProgram(self, instructions):
         """
@@ -88,6 +92,11 @@ class VirtualMachine:
                     original_word = instr[1]
                     new_word = instr[2]
                     self.replaceWord(original_word, new_word)
+            elif command.upper() == self.TRANSLATE:
+                target_lang = instr[1] if len(instr) > 1 else "en"
+                self.translateText(target_lang)
+            elif command.upper() == self.HELPTRANSLATE:
+                self.helpTranslate()
                 
             else:
                 self.messages.append("Invalid or empty command.")
@@ -114,7 +123,6 @@ class VirtualMachine:
         """
         if text:
             self.changeStack.append(text)
-            self.clearRedo()  # Clear redo stack when new text is added
             self.messages.append(f"Executing writeText fuction. Text has been written. Current text: {self.getCurrentText()}")
 
     def undo(self):
@@ -248,7 +256,6 @@ class VirtualMachine:
 
         if len(self.changeStack) > 0:
            self.changeStack.clear()
-           self.messages.clear()
            self.messages.append("Executing clear function. Text has been deleted correctly")
         else:
             self.messages.append("Executing clear function. There is not text in the stack.")  
@@ -285,6 +292,43 @@ class VirtualMachine:
             self.messages.append(f"Word '{original}' not found in the current text.")
 
 
+    def translateText(self, target_language):
+            """
+            Function to translate the current text to the specified language.
+            
+            Args:
+                target_language (string): Target language code (e.g., 'en' for English, 'es' for Spanish).
+            """
+            
+            valid_languages = {
+            'af', 'sq', 'ar', 'hy', 'az', 'be', 'bg', 'ca', 'cs', 'zh-CN', 'zh-TW',
+            'hr', 'da', 'sk', 'sl', 'es', 'et', 'tl', 'fi', 'fr', 'gl', 'ka', 'de',
+            'el', 'he', 'hi', 'hu', 'is', 'it', 'ja', 'jv', 'ko', 'lv', 'lt', 'mk',
+            'ms', 'mt', 'nl', 'no', 'fa', 'pl', 'pt', 'ro', 'ru', 'sr', 'sv', 'th',
+            'tr', 'uk', 'ur', 'vi', 'cy', 'xh', 'yo', 'zu', 'en'}
+                
+            # Save the complete state of the changeStack before performing the replacement
+            previous_state2 = self.changeStack.copy()
+            target_lower = target_language.lower()
+            
+            if target_lower not in valid_languages:  # We verify that the chosen language is valid
+                self.messages.append(f"Invalid target language: '{target_lower}'. Please use a valid language code.")
+            else:
+                if self.changeStack:    #If the language is valid
+                    
+                    current_text = self.getCurrentText()    
+                    translation = self.translator.translate(current_text, dest=target_lower).text
+                    translated_words = translation.split() # Split the translated text into words
+                    
+                    self.changeStack.clear()  # Clean changeStack
+                    self.changeStack.extend(translated_words)  # Add the translate text to changeStack
+                    
+                    self.changereplaceWord = []  # Clean changereplaceWord
+                    self.changereplaceWord.append(previous_state2)  # Save previous state in changereplaceWord
+                    self.messages.append(f"Text translated to {target_lower}. Translated text: {translation}")
+                else:
+                    self.messages.append("No text to translate.")
+
 
 
     def help(self):
@@ -296,6 +340,8 @@ class VirtualMachine:
         self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit")
         self.messages.append("For more information, please refer to the README.md file in the QR code.")
 
+    def helpTranslate(self):
+        self.messages.append("To translate the text you must type the both initial letters of the target Language (e.g. 'es' for Spanish, 'en' for English).")
 
 # Function to read the custom text file
 def read_instructions_from_file(file):
