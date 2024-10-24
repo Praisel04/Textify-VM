@@ -1,0 +1,131 @@
+/* Reset general styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dda56a; /* Color de fondo cálido claro */
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Contenedor principal */
+.container {
+    width: 80%;
+    max-width: 800px;
+    background-color: #ffe4b5;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Header styling */
+.header {
+    display: flex;
+    justify-content: center; /* Centrar el título */
+    align-items: center;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    color: #d75b0d;
+    margin-bottom: 20px;
+}
+
+/* QR code en la esquina superior derecha */
+.qr-code {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+    margin-right: 70px;
+}
+.logo {
+    position: absolute;
+    top: 1;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    margin-top: 70px;
+}
+
+/* Instrucciones y otros estilos */
+h2 {
+    color: #d75b0d;
+    margin-top: 20px;
+    border-bottom: 2px solid #d75b0d;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 1em;
+    text-align: center;
+}
+
+ul {
+    font-size: 0.8em;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d75b0d;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+button {
+    background-color: #d75b0d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    margin: 0; /* Elimina el margen para evitar que afecte el centrado */
+}
+
+
+button:hover {
+    background-color: #c66b0e;
+}
+
+.button {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 10px; /* Añade un espacio entre los botones */
+}
+
+
+#output, #messages {
+    border: 1px solid #d75b0d;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
