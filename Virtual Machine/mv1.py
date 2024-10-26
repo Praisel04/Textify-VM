@@ -123,6 +123,7 @@ class VirtualMachine:
         """
         if text:
             self.changeStack.append(text)
+            self.redoStack.clear()
             self.messages.append(f"Executing writeText fuction. Text has been written. Current text: {self.getCurrentText()}")
 
     def undo(self):
@@ -330,14 +331,13 @@ class VirtualMachine:
                     self.messages.append("No text to translate.")
 
 
-
     def help(self):
         """
         Help function
         This function shows the available arguments for the program.
         The arguments are: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit
         """
-        self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit")
+        self.messages.append("Arguments availables: writeText <text> | undo | redo | copyWord <word> | pasteWord | clear | show | upper | lower | clear | help | exit\033")
         self.messages.append("For more information, please refer to the README.md file in the QR code.")
 
     def helpTranslate(self):
