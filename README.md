@@ -126,6 +126,8 @@ Esta página se divide en tres secciones
   - OUTPUT: Es donde se mostrará el texto directamente
   - Command Control: Se muestra el control de los comando utilizados por el usuario.
   - PDF Downloader: Se ha implementado una libreria para poder descargar los textos en formato PDF.
+  - Save File: Se ha implementado la posibilidad de descargar archivos .tfy para guardar el texto escrito.
+  - Load File: Se ha implementado la posibilidad de cargar archivos .tfy con el contenido de los textos.
 
 
 >[!NOTE]
