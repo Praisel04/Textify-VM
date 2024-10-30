@@ -274,7 +274,7 @@ class VirtualMachine:
             new_word (string): This arg is the word that is going to replace.
         """
         
-        encontrar = False 
+        find = False 
             
         # Save the complete state of the changeStack before performing the replacement
         previous_state = self.changeStack.copy()
@@ -283,9 +283,9 @@ class VirtualMachine:
         for i in range(len(self.changeStack)):
             if self.changeStack[i] == original:
                 self.changeStack[i] = new_word  # Replace the word
-                encontrar = True
+                find = True
 
-        if encontrar:
+        if find:
             self.changereplaceWord = []  # Clean changereplaceWord
             self.changereplaceWord.append(previous_state)  # Save previous state in changereplaceWord
             self.messages.append(f"Replaced '{original}' with '{new_word}'. Current text: {self.getCurrentText()}")
